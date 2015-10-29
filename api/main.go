@@ -8,6 +8,7 @@ import (
 	"io"
 	"encoding/json"
 	"log"
+	"strconv"
 )
 
 var redisChan chan Candy
@@ -35,23 +36,13 @@ func redisPublisher(){
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "PUT" {
+	if r.Method != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		io.WriteString(w, "Go away! Watch the tutorial at https://www.youtube.com/watch?v=oHg5SJYRHA0\n")
 		return
 	}
-	var body []byte
-	var candy Candy
-    io.ReadFull(r.Body, body)
-	defer r.Body.Close()
-	err := json.Unmarshal(body, candy)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		io.WriteString(w, "Could not understand you\n")
-		return
-	}
-	candy.Time = time.Now()
-
+	f, _ := strconv.ParseFloat(r.URL.Query().Get("price"), 64)
+	candy := Candy{Name:r.URL.Query().Get("name"), Price:f, Object:r.URL.Query().Get("object"), Time:time.Now()}
 	//sanity checks go here
 	redisChan <- candy
 

@@ -33,24 +33,22 @@ func redisSubscriber() {
 			fmt.Printf("%s: message: %s\n", v.Channel, v.Data)
 			if v.Channel == "candy" {
 				var c Candy
-				err := json.Unmarshal(v.Data, c)
+				err := json.Unmarshal(v.Data, &c)
 				if (err != nil) {
 					log.Printf("Seems our redis is sick! In the evening we'll get some schnaps to ease the pain!")
+					continue
 				}
 				redisChan <- c
 			}
 		case redis.Subscription:
 			fmt.Printf("%s: %s %d\n", v.Channel, v.Kind, v.Count)
 		case error:
-			log.Println(v)
+			log.Println(v.Error())
 		}
 	}
 }
 
 func elasticUpdater() {
-
-
-	// Add a document to the index
 
 	for c := range redisChan {
 		buf, err := json.Marshal(c)
@@ -65,7 +63,7 @@ func elasticUpdater() {
 		}
 		if resp != nil {
 			body, _ := ioutil.ReadAll(resp.Body)
-			log.Println(body)
+			log.Println(string(body))
 		}
 	}
 }
