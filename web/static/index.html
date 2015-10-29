@@ -23,9 +23,32 @@
             border: 2px solid seagreen !important;
         }
     </style>
+
+    <script>
+
+        function buy() {
+
+          $.get( "http://api:8080/",
+          { name: $('.btn-circle.active input')[0].value,
+           object: $('.btn-circle-item.active input')[0].value,
+            price: 0.7},
+             function( data ) {
+            $( ".result" ).html( data );
+            alert( "Load was performed." );
+          });
+          $
+        }
+
+        function setFortune(){
+            var fortunes = $("#fortunes").text().split('\n');
+            var fort = fortunes[Math.floor(Math.random()*fortunes.length)];
+            $("#fortune-text").text(fort);
+        }
+    </script>
+
 </head>
 <body>
-<div class="container-fluid" style="width:100%; height:100%; min-height:100%;">
+<div class="container-fluid" style="width:80%; height:80%; min-height:80%;">
     <img class="logo"
          src="img/title.png" align="center"/>
     <div class="main-area">
@@ -74,7 +97,7 @@
 
             </div>
             <div align="center" style="margin-top: 2vh">
-                <button href="#">Nom nom nom!</button>
+                <button href="#" onclick="buy()">Nom nom nom!</button>
             </div>
             <div id="fortunes" style="display: none;">You will find a bushel of money
                 Your smile will tell you what makes you feel good.
@@ -124,13 +147,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script>
-    function setFortune(){
-        var fortunes = $("#fortunes").text().split('\n');
-        var fort = fortunes[Math.floor(Math.random()*fortunes.length)];
-        $("#fortune-text").text(fort);
-    }
-</script>
+
 <script src="js/bootstrap.min.js"></script>
 </body>
 </html>

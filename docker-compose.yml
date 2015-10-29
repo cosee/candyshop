@@ -9,6 +9,8 @@ web:
   links:
     - api
     - redis
+  ports:
+    - 8081:80
 worker:
   build: ./worker
   links:
