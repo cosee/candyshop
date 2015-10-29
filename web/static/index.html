@@ -28,13 +28,13 @@
 
         function buy() {
 
-          $.get( "http://api:8080/",
+          $.get( "/api",
           { name: $('.btn-circle.active input')[0].value,
            object: $('.btn-circle-item.active input')[0].value,
             price: 0.7},
              function( data ) {
-            $( ".result" ).html( data );
-            alert( "Load was performed." );
+
+               setFortune();
           });
           $
         }
