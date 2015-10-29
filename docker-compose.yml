@@ -1,0 +1,33 @@
+api:
+  build: ./api
+  links:
+    - redis
+
+web:
+  build: ./web
+  links:
+    - api
+    - redis
+
+worker:
+  build: ./worker
+  links:
+    - elasticsearch
+    - redis
+
+redis:
+  image: redis
+  expose:
+    - 6379
+
+elasticsearch:
+  image: elasticsearch
+  expose:
+    - 9200
+
+kibana:
+  image: kibana
+  links:
+    - elasticsearch
+  ports:
+    - 5601:5601
