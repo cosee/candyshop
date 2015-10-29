@@ -8,6 +8,8 @@ import (
 	"log"
 	"fmt"
 	"net/http"
+	"io/ioutil"
+	"bytes"
 )
 
 var redisChan chan Candy
@@ -56,18 +58,20 @@ func elasticUpdater() {
 			log.Print(err)
 			continue
 		}
-		resp, err := http.Post("http://elasticsearch:9200/candyshop/candy/", "application/json", &buf)
+		resp, err := http.Post("http://elasticsearch:9200/candyshop/candy/", "application/json", bytes.NewReader(buf))
+		defer resp.Body.Close()
 		if err != nil {
 			log.Println(err)
 		}
 		if resp != nil {
-			log.Println(resp)
+			body, _ := ioutil.ReadAll(resp.Body)
+			log.Println(body)
 		}
 	}
 }
 
 func main() {
-	time.Sleep(time.Second * 20)
+	time.Sleep(time.Second * 10)
 	redisChan = make(chan Candy, 10)
 	go redisSubscriber()
 	elasticUpdater()
