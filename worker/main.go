@@ -3,11 +3,11 @@ package main
 import (
 	"github.com/garyburd/redigo/redis"
 	"time"
-	"gopkg.in/olivere/elastic.v3"
 
 	"encoding/json"
 	"log"
 	"fmt"
+	"net/http"
 )
 
 var redisChan chan Candy
@@ -46,33 +46,28 @@ func redisSubscriber() {
 }
 
 func elasticUpdater() {
-	client, err := elastic.NewClient(elastic.SetURL("http://elasticsearch:9200"))
-	if err != nil {
-		// Handle error
-	}
 
-	_, err = client.CreateIndex("twitter").Do()
-	if err != nil {
-		// Handle error
-		panic(err)
-	}
 
 	// Add a document to the index
 
 	for c := range redisChan {
-		_, err = client.Index().
-		Index("candyshop").
-		Type("candy").
-		BodyJson(c).
-		Do()
+		buf, err := json.Marshal(c)
 		if err != nil {
-			// Handle error
+			log.Print(err)
+			continue
+		}
+		resp, err := http.Post("http://elasticsearch:9200/candyshop/candy/", "application/json", &buf)
+		if err != nil {
 			log.Println(err)
+		}
+		if resp != nil {
+			log.Println(resp)
 		}
 	}
 }
 
 func main() {
+	time.Sleep(time.Second * 20)
 	redisChan = make(chan Candy, 10)
 	go redisSubscriber()
 	elasticUpdater()
