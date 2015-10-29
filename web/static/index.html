@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Candyshop</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="candyshop.css" rel="stylesheet">
+    <style type="text/css">
+        .withBorders {
+            border: 2px solid seagreen !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" style="width:100%; height:100%; min-height:100%;">
+    <img class="logo"
+         src="img/title.png" align="center"/>
+    <div class="main-area">
+        <div class="content" style="margin-top: 2vh">
+            <div class="candy-group" data-toggle="buttons">
+                <label class="btn btn-circle ">
+                    <input type="radio" name="options" id="user1" autocomplete="off" value="Andy"> <img class="img-circle"
+                                                                                             src="img/andy.jpg">
+                </label>
+                <label class="btn btn-circle ">
+                    <input type="radio" name="options" id="user2" autocomplete="off" value="Alex"> <img class="img-circle"
+                                                                                             src="img/alex.jpg">
+                </label>
+                <label class="btn btn-circle active">
+                    <input type="radio" name="options" id="user3" autocomplete="off" value="Dirk"> <img class="img-circle"
+                                                                                             src="img/dirk.jpg">
+                </label>
+                <label class="btn btn-circle ">
+                    <input type="radio" name="options" id="user4" autocomplete="off" value="Michi"> <img class="img-circle"
+                                                                                             src="img/michi.jpg">
+                </label>
+                <label class="btn btn-circle ">
+                    <input type="radio" name="options" id="user5" autocomplete="off" value="Tobi"> <img class="img-circle"
+                                                                                             src="img/tobi.jpg">
+                </label>
+            </div>
+            <div class="candy-group" data-toggle="buttons">
+                <label class="btn btn-circle-item">
+                    <input type="radio" name="options" id="item1" autocomplete="off" value="Haribo"> <span>Haribo</span>
+                </label>
+                <label class="btn btn-circle-item">
+                    <input type="radio" name="options" id="item2" autocomplete="off" value="Mate"> <span>Mate</span>
+                </label>
+                <label class="btn btn-circle-item">
+                    <input type="radio" name="options" id="item3" autocomplete="off" value="Snickers"> <span>Snickers</span>
+                </label>
+                <label class="btn btn-circle-item">
+                    <input type="radio" name="options" id="item4" autocomplete="off" value="KitKat"> <span>KitKat</span>
+                </label>
+                <label class="btn btn-circle-item">
+                    <input type="radio" name="options" id="item5" autocomplete="off" value="M&M"> <span>M&M</span>
+                </label>
+            </div>
+
+            <div id="fortune-text" style="text-align: center">
+
+            </div>
+            <div align="center" style="margin-top: 2vh">
+                <button href="#">Nom nom nom!</button>
+            </div>
+            <div id="fortunes" style="display: none;">You will find a bushel of money
+                Your smile will tell you what makes you feel good.
+                Don’t panic
+                The best year-round temperature is a warm heart and a cool head
+                It could be better, but it’s good enough.
+                You will find a thing. It may be important
+                Your reality check about to bounce.
+                Two days from now, tomorrow will be yesterday.
+                When chosen for jury duty, tell judge fortune cookie say “guilty!”
+                Stop eating now. Food poisoning no fun.
+                You are cleverly disguised as responsible adult.
+                Drive like hell, you will get there.
+                Person who eat fortune cookie get lousy dessert.
+                Okay to look at past and future. Just don’t stare.
+                Soup was secret family recipe made from toad. Hope you liked!
+                You will soon have an out of money experience.
+                He who dies with most toys, still dies.
+                Person who rests on laurels gets thorn in backside.
+                Two can live as cheaply as one, for half as long.
+                Life is a sexually transmitted condition.
+                Give person fish, he eat for day. Teach person to fish, he always smell funny.
+                Person who argues with idiot is taken for fool.
+                Look before you leap. Or wear a parachute.
+                The end is near, might as well have dessert.
+                This fortune no good. Try another.
+                Wise husband is one who thinks twice before saying nothing.
+                Marriage lets you annoy one special person for the rest of your life
+                Run
+                Make love, not bugs
+                You will read this and say “Geez! I could come up with better fortunes than that!”
+                I cannot help you, for I’m just a cookie
+                The fortune you seek, is in another cookie
+                Don’t eat any Chinese food today or you’ll be sick!
+                About time I got out of that cookie!
+                Come back later….I’m sleeping (yes, cookies need their sleep too)
+                You will be hungry again in one hour
+                You will die alone and poorly dressed
+                Warning: do not eat your fortune
+                If you can read this, you are literate. Congratulations
+                Made in the USA</div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script>
+    function setFortune(){
+        var fortunes = $("#fortunes").text().split('\n');
+        var fort = fortunes[Math.floor(Math.random()*fortunes.length)];
+        $("#fortune-text").text(fort);
+    }
+</script>
+<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
