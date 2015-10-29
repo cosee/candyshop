@@ -2,6 +2,8 @@ api:
   build: ./api
   links:
     - redis
+  ports:
+    - 8080:8080
 web:
   build: ./web
   links:
